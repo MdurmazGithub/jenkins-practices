@@ -1,66 +1,42 @@
 pipeline {
     agent any
+
     parameters {
         choice(name: 'ENV', choices: ['dev', 'test', 'stage', 'prod'], description: 'Choose an environment to deploy to')
     }
+
     stages {
+        stage('Initialize') {
+            steps {
+                echo 'This is an empty repository.'
+            }
+        }
         stage('Checkout') {
             steps {
-                git 'https://github.com/MdurmazGithub/jenkins-practices.git'
+                echo 'Checking out the repository...'
+                git 'https://github.com/MdurmazGithub/jenkins-practices.git' // Replace with your empty repo URL
             }
         }
         stage('Build') {
             steps {
-               echo 'mvn clean package'
+                echo 'No code to build.'
             }
         }
-        stage('Deploy to Dev') {
-            when {
-                expression { params.ENV == 'dev' }
-            }
+        stage('Test') {
             steps {
-                echo 'Deploying to Development Environment'
-                // Deployment steps for dev
+                echo 'No tests to run.'
             }
         }
-        stage('Deploy to Test') {
-            when {
-                expression { params.ENV == 'test' }
-            }
+        stage('Deploy') {
             steps {
-                echo 'Deploying to Test Environment'
-                // Deployment steps for test
-            }
-        }
-        stage('Deploy to Stage') {
-            when {
-                expression { params.ENV == 'stage' }
-            }
-            steps {
-                echo 'Deploying to Stage Environment'
-                // Deployment steps for stage
-            }
-        }
-        stage('Deploy to Prod') {
-            when {
-                expression { params.ENV == 'prod' }
-            }
-            steps {
-                echo 'Deploying to Production Environment'
-                // Deployment steps for prod
+                echo "Deploying to ${params.ENV} environment."
             }
         }
     }
+
     post {
         always {
-            echo 'Cleaning up...'
-            // Clean-up actions
-        }
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed.'
+            echo 'Pipeline completed.'
         }
     }
 }
