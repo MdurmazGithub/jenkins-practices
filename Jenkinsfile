@@ -1,9 +1,8 @@
-
 pipeline {
     agent any // { label 'master' }
 
     options {
-        timestamps ()
+        timestamps()
         ansiColor('vga')
         buildDiscarder(logRotator(numToKeepStr: '3'))
     }
@@ -12,8 +11,7 @@ pipeline {
             steps {
                 echo "Pipeline job with Jenkinsfile"
                 sh 'echo using shell within Jenkinsfile'
-                sh 'java Hello.java'
-//                 sh 'java Hello'
+                sh 'javac Hello.java' // Compile the Java file
                 echo 'not using shell in the Jenkinsfile'
             }
         }
@@ -21,7 +19,7 @@ pipeline {
             steps {
                 echo "Pipeline job with Jenkinsfile"
                 sh 'echo Running java file'
-                sh 'java Hello'
+                sh 'java Hello' // Run the compiled Java class
                 echo 'Java file run successfully!!!'
             }
         }
