@@ -1,0 +1,1 @@
+jenkins will check this repository and ıf ıt find any changes tı will trigger my job
